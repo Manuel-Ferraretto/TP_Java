@@ -26,20 +26,20 @@ public class ProfesionalController {
 		return dp.getByEmail(email);
 	}
 
-	public void add(Profesional p2) {
-		dp.add(p2);
+	public boolean add(Profesional p2) {
+		return dp.add(p2);
 	}
 
 	public Profesional getByMatricula(String mat) throws SQLException {
 		return dp.getByMatricula(mat);
 	}
 
-	public void update(Profesional p2, String matricula) throws SQLException {
-		dp.update(p2,matricula);
+	public boolean update(Profesional p2, String matricula) throws SQLException {
+		return dp.update(p2,matricula);
 	}
 
-	public void delete(String mat) throws SQLException {
-		dp.delete(mat);
+	public boolean delete(String mat) throws SQLException {
+		return dp.delete(mat);
 	}
 	
 	public Profesional getByUser(Profesional p) throws SQLException, IOException {

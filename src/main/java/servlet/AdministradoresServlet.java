@@ -71,9 +71,15 @@ public class AdministradoresServlet extends HttpServlet {
 					Administrador adm = new Administrador();
 					adm.setUsername(username);
 					adm.setPassword(request.getParameter("password"));
-					ac.add(adm);
-					request.setAttribute("estado", "Administrador agregado correctamente.");
-					request.getRequestDispatcher("AdministradoresServlet?accion=listar").forward(request, response);
+					boolean create = ac.add(adm);
+					if(create) {
+						request.setAttribute("estado", "Administrador agregado correctamente.");
+						request.getRequestDispatcher("AdministradoresServlet?accion=listar").forward(request, response);
+					} else {
+						request.setAttribute("estado", "Hubo un error al crear el administrador. Intente de nuevo más tarde");
+						request.getRequestDispatcher("AdministradoresServlet?accion=listar").forward(request, response);
+					}
+					
 				} else {
 					request.setAttribute("estado", "Administrador ingresado ya existe con ese Email");
 					request.getRequestDispatcher("./addAdministrador.jsp").forward(request, response);
@@ -114,10 +120,15 @@ public class AdministradoresServlet extends HttpServlet {
 					adm.setId(id);
 					adm.setUsername(username);
 					adm.setPassword(request.getParameter("password"));
-					ac.update(adm);
-					request.setAttribute("estado", "Administrador editado correctamente.");
-					request.getRequestDispatcher("AdministradoresServlet?accion=listar").forward(request, response);
-				}
+					boolean update = ac.update(adm);
+					if(update) {
+						request.setAttribute("estado", "Administrador editado correctamente.");
+						request.getRequestDispatcher("AdministradoresServlet?accion=listar").forward(request, response);
+					} else {
+						request.setAttribute("estado", "No se ha podido actualizar el administrador. Intente de nuevo más tarde");
+						request.getRequestDispatcher("AdministradoresServlet?accion=listar").forward(request, response);
+					}
+									}
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -129,10 +140,15 @@ public class AdministradoresServlet extends HttpServlet {
 			int codigo = Integer.parseInt(request.getParameter("id"));
 			
 			try {
-				ac.delete(codigo);
-				request.setAttribute("estado", "Administrador eliminado exitosamente.");
-				request.getRequestDispatcher("AdministradoresServlet?accion=Listar").forward(request, response);
-			} catch (SQLException e1) {
+				boolean delete = ac.delete(codigo);
+				if(delete) {
+					request.setAttribute("estado", "Administrador eliminado exitosamente.");
+					request.getRequestDispatcher("AdministradoresServlet?accion=Listar").forward(request, response);
+				} else {
+					request.setAttribute("estado", "Hubo un error al eliminar al administrador. Intente de nuevo más tarde");
+					request.getRequestDispatcher("AdministradoresServlet?accion=Listar").forward(request, response);
+				}
+							} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}				

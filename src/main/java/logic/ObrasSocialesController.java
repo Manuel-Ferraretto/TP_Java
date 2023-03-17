@@ -24,16 +24,16 @@ public class ObrasSocialesController {
 		return dos.getByNombre(nombre);
 	}
 
-	public void add(ObraSocial ob) {
-		dos.add(ob);
+	public boolean add(ObraSocial ob) {
+		return dos.add(ob);
 	}
 
 	public ObraSocial getByCodigo(int id) throws SQLException {
 		return dos.getByCodigo(id);
 	}
 
-	public void update(ObraSocial ob) {
-		dos.update(ob);
+	public boolean update(ObraSocial ob) {
+		return dos.update(ob);
 	}
 
 	public void delete(int cod_os) throws SQLException{

@@ -149,16 +149,21 @@ public class NuevoTurno extends HttpServlet {
 				t.setPaciente(pac);
 				Profesional prof = profCtrl.getByMatricula(mat);
 				t.setProf(prof);
-				turCtrl.asignarTurno(t);
-				ObraSocial os = pac.getOs();
-				Valor_especialidad ve = veCtrl.getValorPorCodigo(prof.getEsp().getCodigo_esp());
-				Especialidad_ObralSocial porc = eosCtrl.getPorcentajeCobertura(prof.getEsp().getCodigo_esp(), os.getId_obra_social());
+				boolean create = turCtrl.asignarTurno(t);
+				if(create) {
+					ObraSocial os = pac.getOs();
+					Valor_especialidad ve = veCtrl.getValorPorCodigo(prof.getEsp().getCodigo_esp());
+					Especialidad_ObralSocial porc = eosCtrl.getPorcentajeCobertura(prof.getEsp().getCodigo_esp(), os.getId_obra_social());
+					
+					request.setAttribute("porc", porc.getPorcentaje_cobertura());
+					request.setAttribute("ve", ve);
+					request.setAttribute("os", os);
+					request.setAttribute("turno", t);
+					request.getRequestDispatcher("./confirmacionTurno.jsp").forward(request, response);
+				} else {
+					request.getRequestDispatcher("./turnoError.jsp").forward(request, response);
+				}
 				
-				request.setAttribute("porc", porc.getPorcentaje_cobertura());
-				request.setAttribute("ve", ve);
-				request.setAttribute("os", os);
-				request.setAttribute("turno", t);
-				request.getRequestDispatcher("./confirmacionTurno.jsp").forward(request, response);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

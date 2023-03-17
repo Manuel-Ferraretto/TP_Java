@@ -26,13 +26,13 @@
 
                 <input type="text" name="apellido" class="input" placeholder="Ingrese su apellido" maxlength=45 required>
 
-                <input type="text" name="dni" class="input" placeholder="Ingrese su numero de documento" pattern="[0-9]{6,8}" maxlength=8 required>
+                <input type="text" name="dni" class="input" placeholder="Ingrese su numero de documento" pattern="[0-9]{6,8}" title="Solo se aceptan números" maxlength=8 required>
                 
                 <input type="email" name="email" class="input" placeholder="Input your email" maxlength=50 required>
 
                 <input type="password" name="clave" class="input" placeholder="Ingrese su clave" maxlength=45 required>
                 
-                <input type="tel" name="celular" class="input" placeholder="Ingrese su numero de celular" pattern="[0-9]{8,45}" maxlength=45 required>
+                <input type="tel" name="celular" class="input" placeholder="Ingrese su numero de celular" pattern="[0-9]{8,45}" title="Solo se aceptan números" maxlength=45 required>
                 
                 <label for="inputCel">Obra social</label>
                 <select name="obra_social" style="color: black">

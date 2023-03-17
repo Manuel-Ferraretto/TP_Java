@@ -21,20 +21,20 @@ public class AdministradorController {
 		return da.getAll();
 	}
 
-	public void add(Administrador a) throws SQLException {
-		da.add(a);
+	public boolean add(Administrador a) throws SQLException {
+		return da.add(a);
 	}
 
 	public Administrador getById(int id) throws SQLException {
 		return da.getById(id);
 	}
 
-	public void update(Administrador a) throws SQLException {
-		da.update(a);
+	public boolean update(Administrador a) throws SQLException {
+		return da.update(a);
 	}
 
-	public void delete(int id) throws SQLException {
-		da.delete(id);
+	public boolean delete(int id) throws SQLException {
+		return da.delete(id);
 	}
 	
 	public Administrador getByUsername(String username) throws SQLException {

@@ -127,9 +127,16 @@ public class ProfesionalesServlet extends HttpServlet {
 							esp.setCodigo_esp(Integer.parseInt(request.getParameter("cod_especialidad")));
 							p.setEsp(esp);
 							p.setFoto(inputStream);
-							pc.add(p);
-							request.setAttribute("estado", "Profesional agregado correctamente.");
-							request.getRequestDispatcher("ProfesionalesServlet?accion=listar").forward(request, response);
+							boolean create = pc.add(p);
+							
+							if(create) {
+								request.setAttribute("estado", "Profesional agregado correctamente.");
+								request.getRequestDispatcher("ProfesionalesServlet?accion=listar").forward(request, response);
+							} else {
+								request.setAttribute("estado", "Hubo un error al agregar al profesional.");
+								request.getRequestDispatcher("ProfesionalesServlet?accion=listar").forward(request, response);
+							}
+							
 						} else {
 							request.setAttribute("estado", "La hora de fin no puede ser menor o igual a la hora de inicio.");
 							request.getRequestDispatcher("ProfesionalesServlet?accion=agregar").forward(request, response);
@@ -198,11 +205,16 @@ public class ProfesionalesServlet extends HttpServlet {
 							p.setHora_inicio(hora_inicio);
 							p.setHora_fin(hora_fin);
 							Especialidad esp = new Especialidad();
-							esp.setCodigo_esp(Integer.parseInt(request.getParameter("especialidad")));
+							esp.setCodigo_esp(Integer.parseInt(request.getParameter("cod_especialidad")));
 							p.setEsp(esp);
-							pc.update(p, id);
-							request.setAttribute("estado", "Profesional editado correctamente.");
-							request.getRequestDispatcher("ProfesionalesServlet?accion=listar").forward(request, response);
+							boolean update = pc.update(p, id);
+							if(update) {
+								request.setAttribute("estado", "Profesional editado correctamente.");
+								request.getRequestDispatcher("ProfesionalesServlet?accion=listar").forward(request, response);
+							} else {
+								request.setAttribute("estado", "Hubo un error al actualizar el profesional.");
+								request.getRequestDispatcher("ProfesionalesServlet?accion=listar").forward(request, response);
+							}							
 						} else {
 							request.setAttribute("estado", "No se ha podido actualizar el profesional. La hora de fin no puede ser menor o igual a la hora de inicio.");
 							request.getRequestDispatcher("ProfesionalesServlet?accion=listar").forward(request, response);
@@ -222,9 +234,15 @@ public class ProfesionalesServlet extends HttpServlet {
 			
 			try {
 				tc.deletePorMatricula(mat);
-				pc.delete(mat);
-				request.setAttribute("estado", "Profesional eliminado exitosamente.");
-				request.getRequestDispatcher("ProfesionalesServlet?accion=Listar").forward(request, response);
+				boolean delete = pc.delete(mat);
+				if(delete) {
+					request.setAttribute("estado", "Profesional eliminado exitosamente.");
+					request.getRequestDispatcher("ProfesionalesServlet?accion=Listar").forward(request, response);
+				} else {
+					request.setAttribute("estado", "Hubo un error al eliminar al profesional.");
+					request.getRequestDispatcher("ProfesionalesServlet?accion=Listar").forward(request, response);
+				}
+				
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

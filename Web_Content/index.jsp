@@ -14,7 +14,7 @@
 		<h1 class="login__title">Clínica UTN</h1>
 		<section class="form-login">
 	       <form action="signin" method="post">
-	        <h3>Inciar sesion</h3>
+	        <h3>Iniciar sesion</h3>
 	       	<label for="inputEmail">Usuario</label>
 	        <input type="text" name="username" id="inputEmail" class="input" placeholder="Ingrese su usuario">
 	        <label for="inputPass">Contraseña</label>

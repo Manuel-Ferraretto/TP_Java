@@ -125,8 +125,9 @@ public class DataAdministradores {
 		return adm;
 	}
 
-	public void add(Administrador a) {
+	public boolean add(Administrador a) {
 		// TODO Auto-generated method stub
+		int res = 0;
 		PreparedStatement stmt= null;
 		ResultSet keyResultSet=null;
 		try {
@@ -136,7 +137,7 @@ public class DataAdministradores {
 							PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, a.getUsername());
 			stmt.setString(2, a.getPassword());
-			stmt.executeUpdate();
+			res = stmt.executeUpdate();
 			
 			keyResultSet=stmt.getGeneratedKeys();
             if(keyResultSet!=null && keyResultSet.next()){
@@ -155,6 +156,8 @@ public class DataAdministradores {
             	e.printStackTrace();
             }
 		}
+		
+		return res > 0;
 	}
 
 	public Administrador getById(int id) {
@@ -199,8 +202,9 @@ public class DataAdministradores {
 		return adm;
 	}
 
-	public void update(Administrador a) {
+	public boolean update(Administrador a) {
 		// TODO Auto-generated method stub
+		int res = 0;
 		PreparedStatement stmt= null;
 		ResultSet rs=null;
 		try {
@@ -211,7 +215,7 @@ public class DataAdministradores {
 			stmt.setString(2, a.getPassword());
 			stmt.setInt(3, a.getId());
 	
-			stmt.executeUpdate();
+			res = stmt.executeUpdate();
 			
 		}  catch (SQLException e) {
             e.printStackTrace();
@@ -226,16 +230,18 @@ public class DataAdministradores {
             }
 		}
 		
+		return res > 0;
 	}
 
-	public void delete(int id) {
+	public boolean delete(int id) {
 		// TODO Auto-generated method stub
+		int res = 0;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
 			stmt = DbConnector.getInstancia().getConn().prepareStatement("delete from administradores where id=? ");
 			stmt.setInt(1,id);
-			stmt.executeUpdate();
+			res = stmt.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -251,6 +257,8 @@ public class DataAdministradores {
 				e.printStackTrace();
 			}
 		}
+		
+		return res > 0;
 	}
 
 }

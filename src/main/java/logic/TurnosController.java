@@ -27,8 +27,8 @@ public class TurnosController {
 		return  dt.getHCPaciente(id);
 	}
 
-	public void asignarTurno(Turnos t) throws SQLException {
-		dt.asignarTurno(t);
+	public boolean asignarTurno(Turnos t) throws SQLException {
+		return dt.asignarTurno(t);
 	}
 	
 	public LinkedList<Turnos> getTurnosPaciente(int id) throws SQLException{

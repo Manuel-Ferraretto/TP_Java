@@ -128,7 +128,8 @@ public class DataPacientes {
 		return pac;
 	}
 	
-	public void altaPaciente(Paciente pac) {
+	public boolean altaPaciente(Paciente pac) {
+		int res = 0;
 		PreparedStatement stmt=null;
 		
 		try {		
@@ -145,7 +146,7 @@ public class DataPacientes {
 		stmt.setString(6, pac.getNum_tel());
 		stmt.setInt(7, pac.getOs().getId_obra_social());
 		
-		stmt.executeUpdate();
+		res = stmt.executeUpdate();
 		ResultSet Keyrs = stmt.getGeneratedKeys(); 
 	
 		if (Keyrs != null && Keyrs.next()) {
@@ -164,10 +165,13 @@ public class DataPacientes {
 				ex.printStackTrace();
 			}
 		}
+		
+		return res > 0;
 	}
 	
-	public void update(Paciente pac) {
+	public boolean update(Paciente pac) {
 		// TODO Auto-generated method stub
+		int res = 0;
 		PreparedStatement stmt= null;
 		String consulta = "update pacientes \n"
 				+ "set email=?, password=?, nombre=?, apellido=?, num_tel=?, dni=?,  id_obra_social=? \n"
@@ -183,7 +187,7 @@ public class DataPacientes {
 			stmt.setInt(7, pac.getOs().getId_obra_social());
 			stmt.setInt(8, pac.getId());
 	
-			stmt.executeUpdate();
+			res = stmt.executeUpdate();
 			
 		}  catch (SQLException e) {
             e.printStackTrace();
@@ -196,6 +200,8 @@ public class DataPacientes {
             	e.printStackTrace();
             }
 		}
+		
+		return res > 0;
 	}
 	
 	public Paciente getByEmail(String email) {

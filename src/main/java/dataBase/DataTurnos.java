@@ -133,7 +133,8 @@ public class DataTurnos {
 		return turnos;
 	}
 
-	public void asignarTurno(Turnos t) throws SQLException {
+	public boolean asignarTurno(Turnos t) throws SQLException {
+		int res = 0;
 		PreparedStatement stmt=null;
 		try {
 			stmt = DbConnector.getInstancia().getConn().prepareStatement(
@@ -145,7 +146,7 @@ public class DataTurnos {
 			stmt.setString(3, t.getProf().getMatricula());
 			stmt.setInt(4, t.getPaciente().getId());
 	
-			stmt.executeUpdate();
+			res = stmt.executeUpdate();
 			ResultSet Keyrs = stmt.getGeneratedKeys(); 
 			
 			if (Keyrs != null && Keyrs.next()) {
@@ -163,6 +164,8 @@ public class DataTurnos {
 				ex.printStackTrace();
 			}
 		}
+		
+		return res > 0;
 	} //fin asignarTurno
 
 	public LinkedList<Turnos> getTurnosPaciente(int id) throws SQLException{

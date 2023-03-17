@@ -77,8 +77,9 @@ public class DataObrasSociales {
 		return os;
 	}
 
-	public void add(ObraSocial ob) {
+	public boolean add(ObraSocial ob) {
 		// TODO Auto-generated method stub
+		int res = 0;
 		PreparedStatement stmt= null;
 		ResultSet keyResultSet=null;
 		
@@ -88,7 +89,7 @@ public class DataObrasSociales {
 							"insert into obras_sociales(nombre) values(?)",
 							PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, ob.getNombre());
-			stmt.executeUpdate();
+			res = stmt.executeUpdate();
 			
 			keyResultSet=stmt.getGeneratedKeys();
             if(keyResultSet!=null && keyResultSet.next()){
@@ -106,6 +107,8 @@ public class DataObrasSociales {
             	e.printStackTrace();
             }
 		}
+		
+		return res > 0;
 	}
 
 	public ObraSocial getByCodigo(int id) {
@@ -147,8 +150,9 @@ public class DataObrasSociales {
 		return ob;
 	}
 
-	public void update(ObraSocial ob) {
+	public boolean update(ObraSocial ob) {
 		// TODO Auto-generated method stub
+		int res = 0;
 		PreparedStatement stmt= null;
 		ResultSet rs=null;
 		
@@ -159,7 +163,7 @@ public class DataObrasSociales {
 			stmt.setString(1, ob.getNombre());
 			stmt.setInt(2, ob.getId_obra_social());
 		
-			stmt.executeUpdate();
+			res = stmt.executeUpdate();
 			
 		}  catch (SQLException e) {
             e.printStackTrace();
@@ -172,6 +176,8 @@ public class DataObrasSociales {
             	e.printStackTrace();
             }
 		}
+		
+		return res > 0;
 	}
 
 	public void delete(int cod_os) {

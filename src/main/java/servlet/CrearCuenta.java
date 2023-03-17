@@ -48,8 +48,14 @@ public class CrearCuenta extends HttpServlet {
 				request.getRequestDispatcher("NuevaCuenta").forward(request, response);
 			} else {
 				//valido
-				pacCtrl.altaPaciente(pac);
-				request.getRequestDispatcher("bienvenido.html").forward(request, response);
+				boolean create = pacCtrl.altaPaciente(pac);
+				if (create) {
+					request.getRequestDispatcher("bienvenido.html").forward(request, response);
+				} else {
+					request.setAttribute("msg", "Hubo un error al crear su cuenta, por favor intente de nuevo.");
+					request.getRequestDispatcher("NuevaCuenta").forward(request, response);
+				}
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

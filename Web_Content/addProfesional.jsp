@@ -29,7 +29,7 @@
 						<form action="ProfesionalesServlet" method="Post" enctype="multipart/form-data">
 							<div>
 								<label for="matricula">Ingrese matricula del profesional</label> <br>
-								<input type="text" class="form-control" name="matricula" required maxlength=10> <br>
+								<input type="text" class="form-control" name="matricula" pattern="[0-9]{8,10}" title="Solo se aceptan números" required maxlength=10> <br>
 							</div>
 							<div>
 								<label for="nombre">Ingrese el nombre del profesional</label> <br>

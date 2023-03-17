@@ -6,10 +6,10 @@ public class DbConnector {
 	
 	private static DbConnector instancia;
 	private String driver="com.mysql.cj.jdbc.Driver";
-	private String host="localhost";
+	private String host="node447232-env-9874697.j.layershift.co.uk";
 	private String port="3306";
 	private String user="root";
-	private String password="****";
+	private String password="cGJMv41ayp";
 	private String db="clinica";
 	private int conectados=0;
 	private Connection conn=null;

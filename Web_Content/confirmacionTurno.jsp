@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="styles/estilos.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
 <% 
 	Paciente pac = (Paciente) request.getSession().getAttribute("usuario");
@@ -44,7 +45,7 @@
        					<th>Hora</th>
        					<th>Obra Social</th>
        					<th>Descuento</th>
-       					<th>Monto final</th>
+       					<th>Total a pagar</th>
     				</tr>
    				</thead>
       			<tbody>
@@ -54,8 +55,8 @@
    						<td><%=t.getFecha_turno()%></td>
    						<td><%=t.getHora_turno().format(formatter)%></td>
    						<td><%=os.getNombre()%></td>
-   						<td><%=porc%></td>
-   						<td><%=Math.round(ve.getValor() * (1 - porc))%></td>
+   						<td>% <%=porc * 100%></td>
+   						<td>$ <%=Math.round(ve.getValor() * (1 - porc))%></td>
 					</tr>
 				</tbody> 
 			</table>

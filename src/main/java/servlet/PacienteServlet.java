@@ -124,10 +124,17 @@ public class PacienteServlet extends HttpServlet {
 					pac.setPassword(request.getParameter("clave"));
 					os = osCtrl.getByCodigo(Integer.parseInt(request.getParameter("obra_social")));
 					pac.setOs(os);
-					pacCtrl.actualizarDatosPaciente(pac);
-					request.getSession().setAttribute("usuario", pac);
-					request.setAttribute("msg", "Datos actualizados correctamente.");
-					request.getRequestDispatcher("menuPaciente.jsp").forward(request, response);
+					boolean update = pacCtrl.actualizarDatosPaciente(pac);
+					
+					if(update) {
+						request.getSession().setAttribute("usuario", pac);
+						request.setAttribute("msg", "Datos actualizados correctamente.");
+						request.getRequestDispatcher("menuPaciente.jsp").forward(request, response);
+					} else {
+						request.setAttribute("msg", "Hubo un error al actualizar los datos. Por favor intente más tarde.");
+						request.getRequestDispatcher("PacienteServlet?accion=EditarDatos").forward(request, response);
+					}
+					
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();

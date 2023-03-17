@@ -21,12 +21,12 @@ public class PacientesController {
 		return dp.getByUser(c);		
 	}
 	
-	public void altaPaciente(Paciente c) throws SQLException {
-		dp.altaPaciente(c);
+	public boolean altaPaciente(Paciente c) throws SQLException {
+		return dp.altaPaciente(c);
 	}
 	
-	public void actualizarDatosPaciente(Paciente p) throws SQLException {
-		dp.update(p);
+	public boolean actualizarDatosPaciente(Paciente p) throws SQLException {
+		return dp.update(p);
 	}
 	
 	public Paciente getByEmail(String email) throws SQLException{

@@ -77,9 +77,14 @@ public class ObrasSocialesServlet extends HttpServlet {
 			try {
 				if (obc.getByNombre(nombre) == null) {
 					ob.setNombre(nombre);
-					obc.add(ob);
-					request.setAttribute("estado", "Obra Social agregada correctamente.");
-					request.getRequestDispatcher("ObrasSocialesServlet?accion=listar").forward(request, response);
+					boolean create = obc.add(ob);
+					if(create) {
+						request.setAttribute("estado", "Obra Social agregada correctamente.");
+						request.getRequestDispatcher("ObrasSocialesServlet?accion=listar").forward(request, response);
+					} else {
+						request.setAttribute("estado", "Hubo un error al agregar la obra social. Por favor intente más tarde.");
+						request.getRequestDispatcher("ObrasSocialesServlet?accion=listar").forward(request, response);
+					}				
 				} else {
 					request.setAttribute("estado", "La obra social ingresada ya existe.");
 					request.getRequestDispatcher("./addObraSocial.jsp").forward(request, response);
@@ -115,13 +120,18 @@ public class ObrasSocialesServlet extends HttpServlet {
 				if (os != null && os.getId_obra_social() != id) {
 					request.setAttribute("estado", "No se ha podido actualizar la obra social. Ya existe una con ese nombre");
 					request.getRequestDispatcher("ObrasSocialesServlet?accion=Listar").forward(request, response);
-				}else {
+				} else {
 					os = new ObraSocial();
 					os.setId_obra_social(id);
 					os.setNombre(nombre);
-					obc.update(os);
-					request.setAttribute("estado", "Obra social actualizada correctamente.");
-					request.getRequestDispatcher("ObrasSocialesServlet?accion=listar").forward(request, response);
+					boolean update = obc.update(os);
+					if(update) {
+						request.setAttribute("estado", "Obra social actualizada correctamente.");
+						request.getRequestDispatcher("ObrasSocialesServlet?accion=listar").forward(request, response);
+					} else {
+						request.setAttribute("estado", "No se ha podido actualizar la obra social. Por favor intente de nuevo más tarde.");
+						request.getRequestDispatcher("ObrasSocialesServlet?accion=listar").forward(request, response);
+					}
 				}
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block

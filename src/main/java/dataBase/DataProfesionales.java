@@ -151,8 +151,9 @@ public class DataProfesionales {
 		return pro;
 	}
 
-	public void add(Profesional prof) {
+	public boolean add(Profesional prof) {
 		// TODO Auto-generated method stub
+		int res = 0;
 		PreparedStatement stmt = null;
 		try {
 			stmt = DbConnector.getInstancia().getConn().prepareStatement(
@@ -168,7 +169,7 @@ public class DataProfesionales {
 			stmt.setTime(9, Time.valueOf(prof.getHora_fin()));
 			stmt.setBlob(10, prof.getFoto());
 			
-			stmt.executeUpdate();
+			res = stmt.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -181,7 +182,8 @@ public class DataProfesionales {
 				e.printStackTrace();
 			}
 		}
-
+		
+		return res > 0;
 	}
 
 	public Profesional getByMatricula(String mat) {
@@ -230,8 +232,9 @@ public class DataProfesionales {
 		return p;
 	}
 
-	public void update(Profesional p2, String matricula) {
+	public boolean update(Profesional p2, String matricula) {
 		// TODO Auto-generated method stub
+		int res = 0;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -248,10 +251,11 @@ public class DataProfesionales {
 			stmt.setTime(9, Time.valueOf(p2.getHora_fin()));
 			stmt.setString(10, matricula);
 
-			stmt.executeUpdate();
+			res = stmt.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			
 		} finally {
 			try {
 				if (rs != null)
@@ -263,16 +267,19 @@ public class DataProfesionales {
 				e.printStackTrace();
 			}
 		}
+		
+		return res > 0;
 	}
 
-	public void delete(String mat) {
+	public boolean delete(String mat) {
 		// TODO Auto-generated method stub
+		int res = 0;
 		PreparedStatement stmt = null;
 		try {
 			stmt = DbConnector.getInstancia().getConn()
 					.prepareStatement("delete from profesionales where matricula=? ");
 			stmt.setString(1, mat);
-			stmt.executeUpdate();
+			res = stmt.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -284,6 +291,8 @@ public class DataProfesionales {
 				e.printStackTrace();
 			}
 		}
+		
+		return res > 0;
 	}
 	
 	public Profesional getProfesionalByUser(Profesional p) throws SQLException, IOException {

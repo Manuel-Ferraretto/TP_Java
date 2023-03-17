@@ -262,7 +262,13 @@ public class DataEspecialidad_ObraSocial {
 				esp_os.getEsp().setCodigo_esp(esp);
 				esp_os.setOs(new ObraSocial());
 				esp_os.getOs().setId_obra_social(os);
-			} //fin del if
+			} else {
+				esp_os.setPorcentaje_cobertura(0.0f);
+				esp_os.setEsp(new Especialidad());
+				esp_os.getEsp().setCodigo_esp(esp);
+				esp_os.setOs(new ObraSocial());
+				esp_os.getOs().setId_obra_social(os);
+			}
 
 		}  catch (SQLException e) {
             e.printStackTrace();
